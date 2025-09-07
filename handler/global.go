@@ -192,3 +192,17 @@ func GetMemberInfo(memberMasterId int) (memberInfo model.UserMemberInfo) {
 	}
 	return
 }
+
+func MemberMasterIDFromSuitMasterID(suitMasterID int) int {
+	// verified in masterdata.db, all SQL return empty
+	if suitMasterID <= 100109 { // special aqours outfit
+		// SELECT * FROM m_suit WHERE id <= 100109 AND id % 1000 != member_m_id; -> 0
+		return suitMasterID % 1000
+	} else if suitMasterID < 100011001 {
+		// SELECT * FROM m_suit WHERE id > 100109 AND id < 100011001 AND (id / 100) % 1000 != member_m_id; -> 0
+		return (suitMasterID / 100) % 1000
+	} else {
+		// SELECT * FROM m_suit WHERE id >= 100011001 AND (id / 10000) % 1000 != member_m_id; -> 0
+		return (suitMasterID / 10000) % 1000
+	}
+}
