@@ -116,6 +116,13 @@ func Login(ctx *gin.Context) {
 	cardData := gjson.Parse(GetUserData("userCard.json"))
 	loginBody, _ = sjson.Set(loginBody, "user_model.user_card_by_card_id", cardData.Get("user_card_by_card_id").Value())
 
+	// live mv
+	liveMvData := gjson.Parse(GetUserData("liveMv.json"))
+	loginBody, _ = sjson.Set(loginBody, "user_model.user_live_mv_deck_by_id", liveMvData.Get("user_live_mv_deck_by_id").Value())
+	
+	liveMvCustomData := gjson.Parse(GetUserData("liveMvCustom.json"))
+	loginBody, _ = sjson.Set(loginBody, "user_model.user_live_mv_deck_custom_by_id", liveMvCustomData.Get("user_live_mv_deck_custom_by_id").Value())
+
 	// user accessory
 	var UserAccessory []any
 	decoder = json.NewDecoder(strings.NewReader(
