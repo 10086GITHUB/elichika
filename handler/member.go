@@ -130,7 +130,8 @@ func SetTheme(ctx *gin.Context) {
 		}
 		return true
 	})
-
+	
+	viewId := GetMemberInfo(int(memberMasterId))
 	userMemberRes := []any{}
 	userMemberRes = append(userMemberRes, memberMasterId)
 	userMemberRes = append(userMemberRes, model.UserMemberInfo{
@@ -140,7 +141,7 @@ func SetTheme(ctx *gin.Context) {
 		LovePoint:                13181880,
 		LovePointLimit:           13181880,
 		LoveLevel:                500,
-		ViewStatus:               1,
+		ViewStatus:               int(viewId.ViewStatus),
 		IsNew:                    false,
 	})
 
